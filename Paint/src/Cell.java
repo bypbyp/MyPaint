@@ -15,13 +15,14 @@ public class Cell {
         cell = new Rectangle(col, row, Arena.CELL_SIZE, Arena.CELL_SIZE);
         cell.draw();
     }
+
     public void paintCell(){
         cell.setColor(Color.BLUE);
         cell.fill();
         isPainted = true;
     }
 
-    public void clearCell(){
+    public void wipeCell(){
         cell.draw();
         isPainted = false;
     }

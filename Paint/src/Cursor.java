@@ -9,21 +9,29 @@ public class Cursor implements KeyboardHandler {
     private Arena arena;
     private Rectangle cursor;
     private Keyboard keyboard;
-    public boolean isPainted;
 
-    public Cursor(Arena arena){
+
+    public Cursor(Arena arena) {
         this.arena = arena;
         keyboard = new Keyboard(this);
     }
 
-    public void createCursor(){
+    public void createCursor() {
         cursor = new Rectangle(arena.getPADDING(), arena.getPADDING(), arena.getCELL_SIZE(), arena.getCELL_SIZE());
         cursor.setColor(Color.PINK);
         cursor.fill();
         addKeyboard();
     }
 
-    public void addKeyboard(){
+    private int getRow() {
+        return cursor.getY() / arena.getCELL_SIZE();
+    }
+
+    private int getCol() {
+        return cursor.getX() / arena.getCELL_SIZE();
+    }
+
+    public void addKeyboard() {
 
         KeyboardEvent moveRight = new KeyboardEvent();
         moveRight.setKey(KeyboardEvent.KEY_RIGHT);
@@ -58,43 +66,52 @@ public class Cursor implements KeyboardHandler {
     }
 
 
-    public void moveUp(){
+    public void moveUp() {
         this.cursor.translate(0, -Arena.CELL_SIZE);
     }
-    public void moveDown(){
+
+    public void moveDown() {
         this.cursor.translate(0, Arena.CELL_SIZE);
     }
-    public void moveLeft(){
+
+    public void moveLeft() {
         this.cursor.translate(-Arena.CELL_SIZE, 0);
     }
-    public void moveRight(){
-        this.cursor.translate(Arena.CELL_SIZE,0);
-    }
-    //public void paint(){
 
-    //}
+    public void moveRight() {
+        this.cursor.translate(Arena.CELL_SIZE, 0);
+    }
+
+    public void paint() {
+        if (arena.getCell(getCol(), getRow()).isPainted()) {
+            arena.wipeCell(getCol(), getRow());
+
+        } else {
+            arena.paintCell(getCol(), getRow());
+        }
+    }
 
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         int keyPressed = keyboardEvent.getKey();
 
-        if(keyPressed == KeyboardEvent.KEY_RIGHT){
+        if (keyPressed == KeyboardEvent.KEY_RIGHT) {
             moveRight();
         }
-        if (keyPressed == KeyboardEvent.KEY_LEFT){
+        if (keyPressed == KeyboardEvent.KEY_LEFT) {
             moveLeft();
         }
-        if(keyPressed == keyboardEvent.KEY_UP){
+        if (keyPressed == keyboardEvent.KEY_UP) {
             moveUp();
         }
-        if(keyPressed == keyboardEvent.KEY_DOWN){
+        if (keyPressed == keyboardEvent.KEY_DOWN) {
             moveDown();
         }
-       /* if(keyPressed == keyboardEvent.KEY_SPACE){
+        if (keyPressed == keyboardEvent.KEY_SPACE) {
             paint();
         }
-        if(keyPressed == keyboardEvent.KEY_C){
+        /* if(keyPressed == keyboardEvent.KEY_C){
             clear();
         }*/
 
