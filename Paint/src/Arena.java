@@ -35,16 +35,32 @@ public class Arena {
         return cells[col][row];
     }
 
+    public int getPADDING() {
+        return PADDING;
+    }
+
+    public int getWidth(){
+        return arena.getWidth();
+    }
+
+    public int getHeight(){
+        return arena.getHeight();
+    }
+
+    public int getX(){
+        return arena.getX();
+    }
+
+    public int getY(){
+        return arena.getY();
+    }
+
     public void paintCell(int col, int row) {
         getCell(col, row).paintCell();
     }
 
     public void wipeCell(int col, int row) {
         getCell(col, row).wipeCell();
-    }
-
-    public int getPADDING() {
-        return PADDING;
     }
 
     public void arenaMaker() {

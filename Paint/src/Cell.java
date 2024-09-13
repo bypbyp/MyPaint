@@ -17,7 +17,7 @@ public class Cell {
     }
 
     public void paintCell(){
-        cell.setColor(Color.BLUE);
+        cell.setColor(Color.MAGENTA);
         cell.fill();
         isPainted = true;
     }

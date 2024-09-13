@@ -91,29 +91,45 @@ public class Cursor implements KeyboardHandler {
         }
     }
 
+    public void clearArena(){
+        for(int x = 0; x < arena.getRows(); x++){
+            for(int y = 0; y < arena.getCols(); y++){
+                    arena.wipeCell(x, y);
+            }
+        }
+    }
+
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         int keyPressed = keyboardEvent.getKey();
 
         if (keyPressed == KeyboardEvent.KEY_RIGHT) {
-            moveRight();
+            if(cursor.getX() < arena.getWidth() - arena.getCELL_SIZE()){
+                moveRight();
+            }
         }
         if (keyPressed == KeyboardEvent.KEY_LEFT) {
-            moveLeft();
+            if(cursor.getX() > arena.getX()){
+                moveLeft();
+            }
         }
         if (keyPressed == keyboardEvent.KEY_UP) {
-            moveUp();
+            if(cursor.getY() > arena.getY()){
+                moveUp();
+            }
         }
         if (keyPressed == keyboardEvent.KEY_DOWN) {
-            moveDown();
+            if(cursor.getY() < arena.getHeight() - arena.getCELL_SIZE()){
+                moveDown();
+            }
         }
         if (keyPressed == keyboardEvent.KEY_SPACE) {
             paint();
         }
-        /* if(keyPressed == keyboardEvent.KEY_C){
-            clear();
-        }*/
+        if(keyPressed == keyboardEvent.KEY_C){
+            clearArena();
+        }
 
     }
 
